@@ -368,3 +368,9 @@ Note: sometimes angular devkit is askend for. To install:
 > npm install --save-dev @angular-devkit/build-angular
  
 
+----------------------------------------------------------------
+  github ssh key
+
+See install at:
+  https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+  https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
