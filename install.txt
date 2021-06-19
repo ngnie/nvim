@@ -1,0 +1,370 @@
+
+-----------------
+Files to backup
+
+.bashrc
+.vimrc
+.tmuxrc
+
+
+-----------------
+Imagemagick
+
+Used to join pdf files (can also join specific pages)
+
+sudo apt install imagemagick
+
+Set this:
+
+  <policy domain="coder" rights="read | write" pattern="PDF" />
+
+convert -density 150 *.pdf out.pdfq
+convert -density 150 -rotate 90 out.pdf rotated.pdf 
+
+
+
+-----------------
+pdftk
+
+Er faktisk bedre end convert (ImageMagick):
+
+For at få første side i en 2 siders pdf:
+pdftk snitflade-og-plan.pdf cat 1-1 output plantegning-lejlighed-original.pdf
+
+
+-----------------
+Docker
+
+Installing from: https://docs.docker.com/engine/install/debian/..
+
+> sudo apt update
+> sudo apt upgrade
+> sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+> curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+> sudo apt-key fingerprint 0EBFCD88
+
+This will fail saying that the Sparky/sid template was not found:
+> sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+
+Add repository to /etc/apt/sources.list:
+deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+Note: see https://linoxide.com/linux-how-to/configure-sources-list-on-debian/
+
+> sudo apt-get update
+Note: is shows the new repository..
+
+> sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+Test docker install:
+> sudo docker run hello-world
+
+Get status from containerd:
+> sudo systemctl status docker
+
+
+# To uninstall docker:
+> sudo apt-get purge docker-ce docker-ce-cli containerd.io
+> sudo rm -rf /var/lib/docker
+> sudo rm -rf /var/lib/containerd
+
+
+-----------------
+Minikube (from https://minikube.sigs.k8s.io/docs/start/)
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+
+sudo usermod -aG docker $USER && newgrp docker
+minikube start --driver=docker
+
+To set driver using config
+# minikube config set driver docker
+
+Note: minikube comes with kubectl but has to be run with "minikube kubectl". To install kubectl see below.
+
+
+-----------------
+Kubectl (from https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
+Now this works
+
+# kubectl get pods
+# kubectl get namespace
+
+To get all system pods:
+# kubectl get po -A
+
+To show the dashboard:
+# minikube dashboard
+
+Create sample deployment and expose it on 8080:
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+
+Show deployment
+# kubectl get services hello-minikube
+
+Launch browser
+# minikube service hello-minikube
+
+Or do port forward
+# kubectl port-forward service/hello-minikube 7080:8080
+
+Open in http://localhost:7080/
+
+Scale pods up
+# kubectl scale --replicas=3 deployment hello-minikube
+
+To see ip address of all pods
+# kubectl get pods -o wide
+
+Exec
+# kubectl -it hello-minikube-6ddfcc9757-zn6tv /bin/bash
+
+
+-----------------
+Prometheus
+
+Install a quick example
+> docker run -p 9090:9090 prom/prometheus
+> docker ps
+
+Now listen on http://localhost:9090
+
+
+
+
+-----------------
+zsh - oh my zsh
+
+From https://ohmyz.sh/#install
+# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+From https://github.com/romkatv/powerlevel10k
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+From https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k
+Copy fonts:
+  MesloLGS NF Regular.ttf
+  MesloLGS NF Bold.ttf
+  MesloLGS NF Italic.ttf
+  MesloLGS NF Bold Italic.ttf
+
+.. into ~/.fonts and run
+
+# fc-cache -fv
+
+
+-----------------
+tmux
+
+Mouse scrool in tmux
+echo "set -g mouse on" >> ~/.tmux
+
+
+
+
+-----------------
+nvidia
+
+Installing nvidia:
+# sudo apt install -y nvidia-driver
+# lspci|grep -i nvidia
+# lsmod|grep nvidia
+# sudo lshw -numeric -C display
+Note: it also installs the settings.
+
+To uninstall all:
+# sudo apt remove nvidia-*
+# sudo apt purge
+# sudo apt autoremove
+
+Note: install with runner.. the other one installs ubuntu general driver.
+
+
+-----------------
+nvidia cuda install
+
+wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda_11.2.0_460.27.04_linux.run
+sudo sh cuda_11.2.0_460.27.04_linux.run
+
+Installing the toolkit (includes cuda compiler)
+sudo apt install -y nvidia-cuda-toolkit
+# nvcc -V
+
+
+-----------------
+neovim
+
+Install latest neovim:
+
+Download nvim.appimage from https://github.com/neovim/neovim/releases
+
+chmod +x nvim.appimage && sudo mv nvim.appimage /usr/local/bin/nvim
+
+
+-----------------
+Chrome vimium plugin
+
+https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb/related?hl=en
+
+
+----------------------------------------------------------------
+vifm
+
+After installing vifm color schemes where put in colors folder.
+
+The scheme is set in
+
+  .config/vifm/vifmrc
+
+with
+
+  colorscheme near-default
+  "colorscheme palenight 
+
+----------------------------------------------------------------
+sdkman
+
+https://sdkman.io/install
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk version
+
+Installing openjdk:
+To see all java versions
+> sdk list java
+To install java
+> sdk install java 11.0.10-open
+
+Note:
+Identifier is used to install.. not the version.
+Set JAVA_HOME so that :CocInstall coc-java works.
+
+
+----------------------------------------------------------------
+gradle
+
+sdk install gradle 6.8.3
+
+
+----------------------------------------------------------------
+maven
+
+sdk install maven 3.6.3
+
+
+
+----------------------------------------------------------------
+lazygit
+
+Tried to install with git but binary is not created. Test.sh and "go run main.go" is
+working though.
+
+  cd ~/Downloads
+  > git clone https://github.com/jesseduffield/lazygit.git
+  > go install
+
+Installing from binary:
+https://github.com/jesseduffield/lazygit/releases/lazygit_0.26.1_Linux_x86_64.tar.gz
+into ~/Downloads/lazygit
+> cd ~/Downloads/lazygit 
+> tar -xzf lazygit_0.26.1_Linux_x86_64.tar.gz
+> sudo mkdir /opt/lazygit && sudo mv lazygit /opt/lazygit
+
+Add to .zshrc: export PATH=$PATH:/opt/lazygit 
+
+----------------------------------------------------------------
+go (https://golang.org/doc/install#download)
+
+Download go1.16.3.linux-amd64.tar.gz
+
+> sudo rm -fr /opt/go
+> sudo cp go1.16.3.linux-amd64.tar.gz /opt
+> cd /opt && tar -xzf go1.16.3.linux-amd64.tar.gz
+
+Add to .zshrc: export PATH=$PATH:/opt/go/bin
+
+> go version
+go version go1.16.3 linux/amd64
+
+
+
+----------------------------------------------------------------
+TigerVNC
+
+> sudo apt install tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
+
+❯ /usr/bin/vncpasswd
+
+
+vncserver -depth 32 -geometry 1900x1200
+
+❯ /usr/bin/vncserver
+
+
+New 'basse:1 (nikolaj)' desktop at :1 on machine basse
+
+Starting applications specified in /home/nikolaj/.vnc/xstartup
+Log file is /home/nikolaj/.vnc/basse:1.log
+
+Use xtigervncviewer -SecurityTypes VncAuth -passwd /home/nikolaj/.vnc/passwd :1 to connect to the VNC server.
+
+
+Verify
+❯ pgrep Xtigervnc
+❯ ss -tulpn | egrep -i 'vnc|590'
+
+
+$ vncserver -kill :1
+$ vncserver -kill :*
+$ vncserver -list
+
+
+$ ssh user@remote-server -L 5901:127.0.0.1:5901
+$ ssh vivek@power9 -L 5901:127.0.0.1:5901
+
+
+If you want to access by all local network, not only in localhost, you need to type:
+
+vncserver -localhost no -geometry 800x600 -depth 32
+
+
+
+----------------------------------------------------------------
+angularjs
+
+Before installing angular.. npm were udpated:
+> sudo npm install -g npm@7.10.0
+
+To install angular cli globally (in /usr/local):
+
+> cd ~
+> sudo npm install -g @angular/cli
+> ng serve -o --poll=2000
+
+To start a new project:
+> ~/node_modules/.bin/ng new learn
+
+
+Note: sometimes angular devkit is askend for. To install:
+
+> npm install --save-dev @angular-devkit/build-angular
+ 
+

@@ -1,0 +1,342 @@
+------------------------------------------------
+For installing neovim see install.txt.
+
+------------------------------------------------
+TODO
+
+https://catonmat.net/vim-plugins
+Have been through the most.. but there are some plugins that I could still use.. tag hightlight.
+In the vim/plugins there are some links also that could be used.
+
+Telescope
+https://github.com/nvim-telescope/telescope.nvim
+Note: theprimeagen is giving good review on this.. and is customizing it. Seems like a must.
+In the video he also adds the telescope-fzf plugin.. 4 plugings in all. The video:
+Vim Telescope: The Ultimate Fuzzy Finder
+https://www.youtube.com/watch?v=2tO2sT7xX2k
+
+
+Vim in zsh
+In zsh.. vimode.. ctrl r and searh history with / and ?
+https://unix.stackexchange.com/questions/101182/bind-key-sequence-to-escape-zsh
+
+Better Vi Mode in Zshell
+http://stratus3d.com/blog/2017/10/26/better-vi-mode-in-zshell/
+
+
+Code Smell
+Vim Mappings | 7 life changing key maps (actually 16!)
+https://www.youtube.com/watch?v=I0PrxH53Rfc
+From FZF to Telescope with Neovim
+https://www.youtube.com/watch?v=8sba2Veu_uE
+Note: checkout his vimrc!
+
+
+Greg Hurrell
+Vim screencast #89: Dirvish
+https://www.youtube.com/watch?v=ILpdtL-4gv0
+
+
+Jeremy Kahn
+Vim Plugins and Tricks That Give Me Super Powers!
+https://www.youtube.com/watch?v=x8uleL9j5lY
+Note: really good!
+
+
+Java
+ChrisAtMachine
+https://www.youtube.com/watch?v=8q_VPqA-KLs
+
+From https://averywagar.com/post/vim-java/
+  https://github.com/dense-analysis/ale
+  https://github.com/SirVer/ultisnips
+  https://github.com/preservim/tagbar
+
+
+
+
+
+------------------------------------------------
+Youtube notes
+
+ThePrimeagen - VIM Movements P2: 5 moves to make you better ked
+https://www.youtube.com/watch?v=QN4fuSsWTbA
+- anbefaler ctrl+[
+- f el. t char.. med ; (frem) og , (tilbage)
+- c instead of d.. when using cw (instead of ce) the autocomplete window
+  will popup. Ex EventType.ScreenTypeChanged..
+- c d and v work well together with i and a.
+  if (authentication.isAuthenticate()) {
+    client.send();
+    queue.event();
+  }
+  vi ( or ) will select between brackets
+  va ( or ) will select including brackets
+  va { will select the whole if block
+  di { will delete inside the if { } block.. but remain in normal mode
+  ci { will delete inside the if { } block.. and be in edit mode.. nice!
+- mark.. 
+- move block.. Shift v (for line).. and then Shift j or k.. it will now
+  move the block down or up.. and reformat.
+- gv: note that gv rehighligts previous highlight.
+
+
+Vim: Vim as an IDE (VimConf 2020 Talk)
+https://www.youtube.com/watch?v=Gs1VDYnS-Ac
+Note: at 12.55
+
+
+------------------------------------------------
+From a mail
+
+da" - Delete Around quotes
+di] - Delete Inside brackets
+ci{ - Change Inside braces
+dap - Delete Around Paragraph
+vaw - Visually select Around Word
+
+
+------------------------------------------------
+# Plugins
+
+# Plug.vim
+https://github.com/junegunn/vim-plug
+:PlugInstall
+
+
+# Fussy Finder
+Install from https://github.com/junegunn/fzf.vim
+Note: see plugin and mapping of f (local) and F (global) in vimrc.
+
+Must also be installed:
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+source .bashrc
+
+For context finding also install:
+> sudo apt-get install silversearcher-ag
+> sudo apt-get install ripgrep
+Note: use :Rg for current project root.. and :Ag for global.
+
+
+# Solarized
+Install from https://github.com/altercation/vim-colors-solarized
+Note:
+  1. install https://github.com/tpope/vim-pathogen
+  2. move vim-colors-solarized to .vim/bundle
+
+Note: there is also Gruvbox (https://github.com/morhetz/gruvbox) used by Theprimeagen.
+
+# gruvbox
+Install from plug and add:
+colorscheme gruvbox
+set background=dark
+
+
+# pynvim
+Note: begyndte at faa fejl med PlugInstall og PlugUpdate ifm. vim-hug-neovim-rpc som
+installeres ifm. deoplete.vim. Saa pip3 blev installeret saa pynvim kunne installeres
+sudo apt install python3-pip
+sudo pip3 install pynvim
+.. derefter forsvandt fejl paa PlugInstall og PlugUpdate.
+
+From https://github.com/bpdp/vim-java.. installing
+  https://github.com/tfnico/vim-gradle
+
+From https://github.com/bpdp/vim-java.. installing
+  https://github.com/vim-syntastic/syntastic
+
+# vim-javacomplete2
+
+# auto-pairs
+Install from https://github.com/jiangmiao/auto-pairs..
+Using Pathogen..
+cd .vim/bundle
+git clone git://github.com/jiangmiao/auto-pairs.git
+
+#vim-surround
+Install from https://github.com/tpope/vim-surround
+Added to plugin and then PlugInstall.
+
+# coc.nvim and coc.java
+Install npm
+Set JAVA_HOME
+:CocInstall coc-java
+See mappings in vimrc.
+
+# coc-java-debug vimspector
+Having problems nvim ie. and sees "sudo npm install neovim".. but current version
+of npm can't use the newer version of nodejs.
+I then start to update npm:
+
+> sudo apt remove nodejs
+> sudo apt install nodejs
+
+By removing the npm the npm of nodejs will be used:
+> sudo npm uninstall -g npm
+Then get the latest
+> npm install -g npm@latest
+
+I then drop installing neovim using npm.. and download the binary as before (see neovim install)
+
+:CocInstall coc-java-debug
+
+Added to .vimrc
+let g:vimspector_enable_mappings = 'HUMAN'
+nmap <F2> :CocCommand java.debug.vimspector.start<CR>
+
+Then run in nvim:
+:VimspectorInstall vscode-java-debug
+.. after setting breakpoint works with F9 :-)
+
+Add vimspector.json to the root of project (see coc-java-debug).
+
+Set breakpoint with F9.
+
+Start debugger with remote enabled and wait:
+> java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y Hello
+
+Run debugger with F2 to attach to debugger.
+
+Vimspector error:
+For some reason vimspector is not able to find python3.
+:checkhealth show that pynvim is not installed.
+
+Solution:
+> sudo apt update 
+> sudo apt upgrade
+> sudo apt install python3-pip
+> sudo pip3 install pynvim
+
+
+
+------------------------------------------------
+
+# To insert empty line below
+:nmap <S-Enter> O<Esc>j
+
+:nmap <CR> o<Esc>k
+
+# To replace ii with Esc
+:imap ii <Esc>
+
+# To delete setxkbmap
+setxkbmap -option
+
+# To replace tab with spaces
+:set tabstop=2 shiftwidth=2 expandtab
+# To set replace tab with spaces
+:retab
+
+# Set ruler
+:set ruler
+
+# Set number
+:set nu
+:set nonu
+:set nu!
+
+# Set relative number
+:set rnu
+:set nornu
+:set nu!
+
+# Toggle between relative and number
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+dw: delete to the next word
+de: delete to the end of the word
+
+w: move next word 
+e: move end word
+b: left start of word
+ge: left end of word
+
+2w: move 2 word begining
+2e: move 2 word to at the end
+
+d2w: delete two words forward
+d2b: delete two words backward
+
+2dd: delete 2 lines
+
+U: to fix the whole line
+
+rx: replace char and go back to normal
+
+ce: delete word and go to insert mode
+diw: delete in word
+ciw: change all word
+
+c3w: delete 3 words and go to insert mode
+
+set ruler
+
+# Go with relative number
+4j (line 4 down)
+5k (line 5 up)
+
+? search backwards
+ctrl o: previous position
+ctrl i: forward position
+
+% find matching paranthes
+
+:s/old/new/g replace in line
+:%s/old/new/g replace in file
+:%s/old/new/gc with prompt
+:#.#s/old/new/g between two lines
+
+hat: first non blank char in line
+g_: gaar til sidste char i line    
+
+
+-: first non blank in previous line
++: first non blank in next line
+
+*: find next occurence of word caret is on
+#: find backward occurence of word caret is on
+
+t, T, f and F: search in line until and on char (; and , will go to next)
+
+dt): to delete the content in paranthes (delete these words)
+
+dw: delete big word (good for camel case)
+
+zz,zt,zb: current line to middle, top and bottom
+
+  Shift+i: enter insert at first char in line
+  Shift+a: enter insert at last char in line (also spaces)   
+
+Shift + s: delete current line and enter insert mode.
+Shift + j: join below line with current.
+
+0: begining of line
+$: end of line
+_: first char of line (not space)
+
+Tech Weekly #
+Vim As Your Editor 1/6
+Vim Life Ep 8
+
+Tmux
+Ctrl+b+v: split vertical
+Ctrl+b+s: split horisontal
+
+Vim
+Ctrl+w+v: split 
+Ctrl+w+s: split horisontal (as tmux)
+
+Fzf
+Ctrl+v: opens file vertical split
+Ctrl+x: opens file horisontal split
+
+
+
+
+
