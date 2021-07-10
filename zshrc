@@ -15,9 +15,7 @@ export ZSH="/home/nikolaj/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -78,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z fzf)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,23 +108,38 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export JAVA_HOME=/home/nikolaj/.sdkman/candidates/java/11.0.10-open
-export FZF_HOME=/opt/fzf                        
-export PATH=$PATH:$FZF_HOME/bin
-export VIMINIT="source ~/.vimrc"
-alias python=python3                                                 
-export LD_LIBRARY_PATH=/usr/lib/cuda/lib64
-set -o vi        
-
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash 
-
-bindkey "ç" fzf-cd-widget
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/nikolaj/.sdkman"
 [[ -s "/home/nikolaj/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nikolaj/.sdkman/bin/sdkman-init.sh"
 
-export PATH=$PATH:/opt/go/bin:/opt/lazygit
-alias lg='lazygit'
+
+NODE_HOME=/opt/node-v14.17.1-linux-x64
+JAVA_HOME=/home/nikolaj/.sdkman/candidates/java/current
+M2_HOME=/opt/apache-maven-3.6.3
+PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin:/opt/lazygit:$NODE_HOME/bin
+
+alias nvim="/opt/nvim/nvim.appimage"
+alias python="/usr/local/bin/python3.9"
+alias go="/opt/go/bin/go"
+alias lg="/opt/lazygit/lazygit"
+alias repos-shared="cd ~/ngr/repos/acq-apps-shared"
+alias repos-shared-model="cd ~/ngr/repos/acq-apps-shared-model"
+alias repos-reference="cd ~/ngr/repos/acq-apps-reference-data"
+alias repos-security="cd ~/ngr/repos/shared-apps-security"
+alias repos-acquirer="cd ~/ngr/repos/acq-apps-acquirer-data"
+alias repos-web="cd ~/ngr/repos/acq-web-management"
+alias repos-merchant="cd ~/ngr/repos/acq-apps-merchant-register"
+alias repos-psp="cd ~/ngr/repos/acq-apps-psp"
+alias repos-validation="cd ~/ngr/repos/acq-apps-validation"
+alias repos-tools="cd ~/ngr/repos/acq-tools"
+alias repos-subscription="cd ~/ngr/repos/shared-apps-subscription"
+alias repos-kafka="cd ~/ngr/repos/shared-components-kafka-setup"
+alias repos-devops-config-uni-acquirer="cd ~/ngr/repos/devops-config-uni-acquirer"
+alias startReference="cd ~/ngr/repos/acq-apps-reference-data && mvn spring-boot:run"
+alias startSecurity="cd ~/ngr/repos/shared-apps-security && mvn -Pdev spring-boot:run"
+
+set -o vi        
 bindkey ii vi-cmd-mode
+
