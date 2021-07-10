@@ -19,6 +19,7 @@ nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
 
 call plug#begin('~/.vim/plugged')
+  Plug 'mhinz/vim-startify'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'airblade/vim-rooter'
@@ -280,6 +281,7 @@ nmap <silent> <leader>rg :Rg!<CR>
 nmap <silent> <leader>ag :Ag!<CR>
 nmap <silent> <space>f :Files!<cr>
 nmap <silent> <space>F :Files! ~<cr>
+nmap <silent> <space>cc :Commands!<cr>
 
 " Set "<leader>s" to substitute the word under the cursor. Works great with
 " CtrlSF!
