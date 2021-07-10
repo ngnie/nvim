@@ -1,15 +1,20 @@
+set nocompatible
+
 if has("syntax")
   syntax on
 endif
 
-imap ii <Esc>
+imap kk <Esc>
+
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent smartindent
 set nu rnu
+
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+
 nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
 
@@ -48,6 +53,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'KKPMW/vim-sendtowindow'
   Plug 'rakr/vim-one' 
   Plug 'preservim/nerdtree'
+  Plug 'dyng/ctrlsf.vim'
   "Plug 'rafaqz/ranger.vim'  
   "Plug 'vifm/neovim-vifm'
   "Plug 'vifm/vifm.vim'
@@ -59,10 +65,6 @@ call plug#begin('~/.vim/plugged')
   "Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
 
-
-" For Fuzzy finder
-nnoremap <silent> <space>f :Files<cr>
-nnoremap <silent> <space>F :Files ~<cr>
 
 set cursorline
 
@@ -88,6 +90,7 @@ set ignorecase
 set smartcase
 set autoread
 set modifiable
+set encoding=utf-8
 
 let mapleader = " "
 
@@ -266,10 +269,32 @@ nmap <silent> <leader>m :MaximizerToggle<CR>
 
 
 " See buffers
-nmap <silent> <leader>bu :Buffers<CR>
+nmap <silent> <leader>bu :Buffers!<CR>
 
-nmap <silent> <leader>rg :Rg<CR>
-nmap <silent> <leader>ag :Ag<CR>
+
+" For Fuzzy finder
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!.git/*"'
+
+nmap <silent> <leader>/ :BLines!<CR>
+nmap <silent> <leader>rg :Rg!<CR>
+nmap <silent> <leader>ag :Ag!<CR>
+nmap <silent> <space>f :Files!<cr>
+nmap <silent> <space>F :Files! ~<cr>
+
+" Set "<leader>s" to substitute the word under the cursor. Works great with
+" CtrlSF!
+nmap <leader>ss :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+
+" Set up some handy CtrlSF bindings
+nmap <leader>sfa :CtrlSF -R ""<Left>
+nmap <leader>sfA <Plug>CtrlSFCwordPath -W<CR>
+nmap <leader>sfc :CtrlSFFocus<CR>
+nmap <leader>sfC :CtrlSFToggle<CR>
+
+" Use Ripgrep with CtrlSF for performance
+let g:ctrlsf_ackprg = '/usr/bin/rg'
+
+
 
 " Ranger filemanager
 "
