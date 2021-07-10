@@ -1,0 +1,12 @@
+----------------------------------------------------------------
+Vim java gradle
+
+https://github.com/bpdp/vim-java
+https://github.com/tpope/vim-pathogen
+https://vimawesome.com/plugin/vim-gradle-the-lucky-one
+
+
+----------------------------------------------------------------
+Others
+
+https://spacevim.org/use-vim-as-a-java-ide/
