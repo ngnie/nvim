@@ -108,10 +108,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash 
-
 export VIMINIT="source ~/.config/nvim/init.vim"
 export MYVIMRC="~/.config/nvim/init.vim"
 export JAVA_HOME=/home/nikolaj/.sdkman/candidates/java/current
@@ -131,3 +127,7 @@ set -o vi
 alias lg='lazygit'
 alias python=python3                                                 
 
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
