@@ -111,13 +111,18 @@ source $ZSH/oh-my-zsh.sh
 export VIMINIT="source ~/.config/nvim/init.vim"
 export MYVIMRC="~/.config/nvim/init.vim"
 export JAVA_HOME=/home/nikolaj/.sdkman/candidates/java/current
-export FZF_HOME=/opt/fzf                        
+export FZF_HOME=/opt/fzf
+export NVIM_HOME=/opt/nvim
 export LD_LIBRARY_PATH=/usr/lib/cuda/lib64
-export PATH=$PATH:$FZF_HOME/bin:/opt/go/bin:/opt/lazygit
+export PATH=$PATH:$NVIM_HOME:$FZF_HOME/bin:/opt/go/bin:/opt/lazygit
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/nikolaj/.sdkman"
 [[ -s "/home/nikolaj/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nikolaj/.sdkman/bin/sdkman-init.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 bindkey "ç" fzf-cd-widget
 bindkey ii vi-cmd-mode
@@ -126,6 +131,7 @@ set -o vi
 
 alias lg='lazygit'
 alias python=python3                                                 
+alias nvim=nvim.appimage                                                 
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

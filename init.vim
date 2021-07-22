@@ -4,7 +4,7 @@ if has("syntax")
   syntax on
 endif
 
-imap kk <Esc>
+imap ii <Esc>
 
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent smartindent
 set nu rnu
@@ -55,6 +55,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'rakr/vim-one' 
   Plug 'preservim/nerdtree'
   Plug 'dyng/ctrlsf.vim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
   "Plug 'rafaqz/ranger.vim'  
   "Plug 'vifm/neovim-vifm'
   "Plug 'vifm/vifm.vim'
@@ -75,12 +77,18 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " show matches during typing 
 set incsearch
+
 " highlight all matches
 set hlsearch
 
+" gruvbox
 "colorscheme gruvbox
-colorscheme one
 set background=dark
+
+" vim-one
+colorscheme one
+let g:airline_theme='one'
+
 set termguicolors
 set backspace=indent,eol,start
 
@@ -263,6 +271,28 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let g:vimspector_enable_mappings = 'HUMAN'
 nmap <leader>ds :CocCommand java.debug.vimspector.start<CR>
 nmap <leader>db <Plug>VimspectorToggleBreakpoint
+nmap <leader>dc <Plug>VimspectorContinue
+nmap <leader>do <Plug>VimspectorStepOver
+nmap <leader>di <Plug>VimspectorStepInto
+
+
+" ------------------------------------------------------
+" vimux commands
+noremap <leader>dd :VimuxRunCommand "java -Xdiag -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y App"<CR>
+noremap <leader>sbr :VimuxRunCommand "mvn spring-boot:run"<CR>
+
+
+" ------------------------------------------------------
+" vim-test
+"let test#java#runner = 'gradletest'
+let test#java#runner = 'maventest'
+"let test#strategy = "neovim"
+"let test#strategy = "dispatch"
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
 
 
 " Maximizer
@@ -353,22 +383,21 @@ nmap <Leader><Leader>f <Plug>(easymotion-overwin-f2)
 nnoremap <Leader>os :e $MYVIMRC<CR>
 nnoremap <Leader>so :source $MYVIMRC<CR>
 
+" Java syntax (from stackoverflow)
+"let java_highlight_functions = 1
+"let java_hightlight_all = 1
+"set filetype=java
+"highlight link javaScopeDecl Statement
+"highlight link javaType Type
+"highlight link javaDocTags PreProc
 
-" ------------------------------------------------------
-" vimux commands
-noremap <leader>dd :VimuxRunCommand "java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y AcqInitiatingPartyApplication"<CR>
-noremap <leader>sbr :VimuxRunCommand "mvn spring-boot:run"<CR>
 
-
-" ------------------------------------------------------
-" vim-test
-"let test#java#runner = 'gradletest'
-let test#java#runner = 'maventest'
-"let test#strategy = "neovim"
-"let test#strategy = "dispatch"
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>
-
+" Treesitter (java)
+lua << EOF
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF

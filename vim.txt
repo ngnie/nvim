@@ -231,6 +231,27 @@ Solution:
 > sudo apt install python3-pip
 > sudo pip3 install pynvim
 
+------------------------------------------------
+Java syntax (from stackoverflow)
+
+let java_highlight_functions = 1
+let java_hightlight_all = 1
+set filetype=java
+highlight link javaScopeDecl Statement
+highlight link javaType Type
+highlight link javaDocTags PreProc
+
+Note: this is removed after adding Treesitter.
+
+
+------------------------------------------------
+treesitter
+
+Add plugin:
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+Then run:
+:TSInstall java
 
 
 ------------------------------------------------

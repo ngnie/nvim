@@ -407,24 +407,28 @@ To install latest angular cli globally (in /usr/local):
 
 To start a new project:
 > ~/node_modules/.bin/ng new learn
-
-
-Note: sometimes angular devkit is askend for. To install:
-
-> npm install --save-dev @angular-devkit/build-angular
  
-Other commands:
-To install more node versions:
+To install nvm:
+curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o install_nvm.sh
+Note: it will add nvm to .bashrc.. move to zshrc.
+
+Use nvm to install different node versions (node version manager):
 nvm install 11  
 nvm install 12
 nvm alias default 12  
 nvm use 11  
+Note: to see node version:
+> node -v
 
+Use npm to install different packages:
 npm uninstall -g @angular/cli
 npm uninstall @angular/cli
 npm install -g @angular/cli@latest
 npm install @angular/cli@latest
 npm install @angular/cli@8
+
+Note: sometimes angular devkit is askend for:
+> npm install --save-dev @angular-devkit/build-angular
 
 
 ----------------------------------------------------------------
