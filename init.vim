@@ -82,12 +82,12 @@ set incsearch
 set hlsearch
 
 " gruvbox
-"colorscheme gruvbox
-set background=dark
+colorscheme gruvbox
+"set background=dark
 
 " vim-one
-colorscheme one
-let g:airline_theme='one'
+"colorscheme one
+"let g:airline_theme='one'
 
 set termguicolors
 set backspace=indent,eol,start
@@ -276,9 +276,10 @@ nmap <leader>do <Plug>VimspectorStepOver
 nmap <leader>di <Plug>VimspectorStepInto
 
 
-" ------------------------------------------------------
+"------------------------------------------------------
 " vimux commands
-noremap <leader>dd :VimuxRunCommand "java -Xdiag -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y App"<CR>
+noremap <leader>dd :VimuxRunCommand "java -Xdiag -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y vim.App"<CR>
+
 noremap <leader>sbr :VimuxRunCommand "mvn spring-boot:run"<CR>
 
 
@@ -383,13 +384,6 @@ nmap <Leader><Leader>f <Plug>(easymotion-overwin-f2)
 nnoremap <Leader>os :e $MYVIMRC<CR>
 nnoremap <Leader>so :source $MYVIMRC<CR>
 
-" Java syntax (from stackoverflow)
-"let java_highlight_functions = 1
-"let java_hightlight_all = 1
-"set filetype=java
-"highlight link javaScopeDecl Statement
-"highlight link javaType Type
-"highlight link javaDocTags PreProc
 
 
 " Treesitter (java)
